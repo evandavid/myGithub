@@ -22,7 +22,7 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaProvider style={backgroundStyle}>
-        <StatusBar barStyle={'dark-content'} backgroundColor={'#fff'} />
+        <StatusBar barStyle={'light-content'} backgroundColor={'#333'} />
         <MyGithubProvider>
           <Routes />
         </MyGithubProvider>
