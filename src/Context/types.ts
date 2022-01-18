@@ -30,6 +30,8 @@ type IMyGithubContextState = {
 enum ACTION_TYPES {
   INITIAL_DATA = 'INITIAL_DATA',
   UPDATE_SEARCH_QUERY = 'UPDATE_SEARCH_QUERY',
+  ADD_TO_LIST = 'ADD_TO_LIST',
+  REMOVE_FROM_LIST = 'REMOVE_FROM_LIST',
 }
 
 type ProductPayload = {
@@ -39,6 +41,12 @@ type ProductPayload = {
   };
   [ACTION_TYPES.UPDATE_SEARCH_QUERY]: {
     searchQuery?: string;
+  };
+  [ACTION_TYPES.ADD_TO_LIST]: {
+    repository: GithubData;
+  };
+  [ACTION_TYPES.REMOVE_FROM_LIST]: {
+    repository: GithubData;
   };
 };
 

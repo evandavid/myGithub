@@ -55,7 +55,7 @@ const DescriptionText = styled(Text)`
 const Footer = styled(View)`
   flex-direction: row;
   align-items: center;
-  padding-top: 24px;
+  padding-top: 12px;
 `;
 
 const FooterItem = styled(View)`

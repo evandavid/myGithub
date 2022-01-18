@@ -1,5 +1,7 @@
-import React from 'react';
-import {GithubData} from '@Context/types';
+import React, {useEffect} from 'react';
+import {Alert, TouchableWithoutFeedback} from 'react-native';
+import {ACTION_TYPES, GithubData} from '@Context/types';
+import {useMyGithub} from '@Context/index';
 import formatDistance from 'date-fns/formatDistance';
 import Icon from 'react-native-vector-icons/Feather';
 import {abbreviateNumber} from '@Config/Util';
@@ -19,16 +21,61 @@ import {
   ButtonWrapper,
   FollowText,
 } from './styled';
-import {TouchableWithoutFeedback} from 'react-native';
+
+interface RepositoryCardProps extends GithubData {
+  followingScreen?: boolean;
+}
 
 const RepositoryCard = ({
-  owner,
-  full_name,
-  description,
-  updated_at,
-  stargazers_count,
-  language,
-}: GithubData) => {
+  followingScreen,
+  ...repository
+}: RepositoryCardProps) => {
+  const {
+    owner,
+    full_name,
+    description,
+    updated_at,
+    stargazers_count,
+    language,
+  } = repository;
+
+  const {followingList, dispatch} = useMyGithub();
+
+  const isFollowing =
+    followingList && followingList.length
+      ? followingList
+          .map(({full_name: fName}: {full_name: string}) => fName)
+          .includes(full_name)
+      : false;
+
+  const onFollow = () => {
+    dispatch({
+      type: ACTION_TYPES.ADD_TO_LIST,
+      payload: {
+        repository,
+      },
+    });
+    Alert.alert('Following', 'Added to following list');
+  };
+
+  const onUnfollow = () => {
+    dispatch({
+      type: ACTION_TYPES.REMOVE_FROM_LIST,
+      payload: {
+        repository,
+      },
+    });
+    Alert.alert('Unfollow', 'Removed from following list');
+  };
+
+  const getReleases = () => {};
+
+  useEffect(() => {
+    if (followingScreen) {
+      getReleases();
+    }
+  }, [followingScreen]);
+
   return (
     <CardWrapper>
       <InnerWrapper>
@@ -40,6 +87,13 @@ const RepositoryCard = ({
               Last update: {formatDistance(new Date(updated_at), new Date())}
             </LastUpdatedText>
           </TextWrapper>
+          {followingScreen && (
+            <>
+              <TouchableWithoutFeedback>
+                <Icon name="chevron-right" color="#39649D" size={24} />
+              </TouchableWithoutFeedback>
+            </>
+          )}
         </Header>
         <DescriptionText>{description}</DescriptionText>
         <Footer>
@@ -51,12 +105,21 @@ const RepositoryCard = ({
             <Icon name="star" color="#FBCB3F" size={14} />
             <FooterText>{abbreviateNumber(stargazers_count)}</FooterText>
           </FooterItem>
-          <TouchableWithoutFeedback>
-            <ButtonWrapper>
-              <Icon name="user-plus" color="#39649D" size={18} />
-              <FollowText>Follow</FollowText>
-            </ButtonWrapper>
-          </TouchableWithoutFeedback>
+          {isFollowing ? (
+            <TouchableWithoutFeedback onPress={onUnfollow}>
+              <ButtonWrapper>
+                <Icon name="user-x" color="#39649D" size={18} />
+                <FollowText>Unfollow</FollowText>
+              </ButtonWrapper>
+            </TouchableWithoutFeedback>
+          ) : (
+            <TouchableWithoutFeedback onPress={onFollow}>
+              <ButtonWrapper>
+                <Icon name="user-plus" color="#39649D" size={18} />
+                <FollowText>Follow</FollowText>
+              </ButtonWrapper>
+            </TouchableWithoutFeedback>
+          )}
         </Footer>
       </InnerWrapper>
     </CardWrapper>

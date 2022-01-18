@@ -8,4 +8,8 @@ const FollowingScreenWrapper = styled(View)`
   background: #333;
 `;
 
-export {FollowingScreenWrapper};
+const ItemSeparator = styled(View)`
+  height: 12px;
+`;
+
+export {FollowingScreenWrapper, ItemSeparator};

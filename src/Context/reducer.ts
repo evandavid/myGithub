@@ -1,3 +1,9 @@
+import {
+  LIST_KEY,
+  SEARCH_QUERY_KEY,
+  storeObjectData,
+  storeStringData,
+} from '@Config/Db';
 import {ACTION_TYPES, IMyGithubContextState, MyGithubActions} from './types';
 
 const MyGithubReducer = (
@@ -6,10 +12,40 @@ const MyGithubReducer = (
 ): IMyGithubContextState => {
   switch (action.type) {
     case ACTION_TYPES.INITIAL_DATA:
-    case ACTION_TYPES.UPDATE_SEARCH_QUERY:
       return {
         ...state,
         ...action.payload,
+      };
+
+    case ACTION_TYPES.UPDATE_SEARCH_QUERY:
+      storeStringData(action.payload.searchQuery || '', SEARCH_QUERY_KEY);
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case ACTION_TYPES.ADD_TO_LIST:
+      const followingList = [...(state.followingList || [])];
+      followingList.push(action.payload.repository);
+
+      storeObjectData(followingList, LIST_KEY);
+
+      return {
+        ...state,
+        followingList,
+      };
+
+    case ACTION_TYPES.REMOVE_FROM_LIST:
+      const clonedList = [...(state.followingList || [])];
+      const index = clonedList.findIndex(
+        ({id}) => id === action.payload.repository.id,
+      );
+      clonedList.splice(index, 1);
+      storeObjectData(clonedList, LIST_KEY);
+
+      return {
+        ...state,
+        followingList: clonedList,
       };
     default:
       return state;
