@@ -5,6 +5,11 @@ const ReleasesScreenWrapper = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background: #333;
 `;
 
-export {ReleasesScreenWrapper};
+const ItemSeparator = styled(View)`
+  height: 12px;
+`;
+
+export {ReleasesScreenWrapper, ItemSeparator};

@@ -62,6 +62,19 @@ const MyGithubReducer = (
         followingList: clonedListForRelease,
       };
 
+    case ACTION_TYPES.UPDATE_SEEN:
+      const clonedListForSeen = [...(state.followingList || [])];
+      const indexForSeen = clonedListForSeen.findIndex(
+        ({id}) => id === action.payload.repository.id,
+      );
+      clonedListForSeen[indexForSeen].seen = true;
+      storeObjectData(clonedListForSeen, LIST_KEY);
+
+      return {
+        ...state,
+        followingList: clonedListForSeen,
+      };
+
     default:
       return state;
   }

@@ -21,12 +21,24 @@ export const BottomNavigationContext = createContext<{
 });
 
 const withHeaderOptions: any = {
-  headerStyle: {shadowColor: 'transparent'},
   headerTintColor: '#fff',
   headerShown: true,
   headerTitleAlign: 'center',
   headerBackTitleVisible: false,
   headerBackImage: () => <BackIcon />,
+  headerStyle: {
+    shadowColor: 'transparent',
+    backgroundColor: '#333',
+    borderBottomWidth: 0,
+    elevation: 0, // for Android
+    shadowOffset: {
+      width: 0,
+      height: 0, // for iOS
+    },
+  },
+  headerTitleStyle: {
+    color: '#fff',
+  },
 };
 
 const withTabBarOptions = {
@@ -38,19 +50,8 @@ const TabScreens = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        ...withHeaderOptions,
         tabBarShowLabel: false,
-        headerStyle: {
-          backgroundColor: '#333',
-          borderBottomWidth: 0,
-          elevation: 0, // for Android
-          shadowOffset: {
-            width: 0,
-            height: 0, // for iOS
-          },
-        },
-        headerTitleStyle: {
-          color: '#fff',
-        },
         tabBarStyle: {
           backgroundColor: '#333',
           borderTopWidth: 0,
@@ -107,6 +108,7 @@ const Routes = () => {
           component={ReleasesScreen}
           options={{
             ...withHeaderOptions,
+            title: undefined,
           }}
         />
       </Stack.Navigator>

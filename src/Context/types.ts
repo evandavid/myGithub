@@ -42,6 +42,7 @@ enum ACTION_TYPES {
   ADD_TO_LIST = 'ADD_TO_LIST',
   REMOVE_FROM_LIST = 'REMOVE_FROM_LIST',
   UPDATE_RELEASE = 'UPDATE_RELEASE',
+  UPDATE_SEEN = 'UPDATE_SEEN',
 }
 
 type ProductPayload = {
@@ -62,6 +63,10 @@ type ProductPayload = {
     repository: GithubData;
     releases: GithubReleaseData[];
   };
+  [ACTION_TYPES.UPDATE_SEEN]: {
+    repository: GithubData;
+    seen: boolean;
+  };
 };
 
 type MyGithubActions =
@@ -73,5 +78,6 @@ export type {
   ActionMap,
   ProductPayload,
   MyGithubActions,
+  GithubReleaseData,
 };
 export {ACTION_TYPES};

@@ -28,10 +28,12 @@ import {
 
 interface RepositoryCardProps extends GithubData {
   followingScreen?: boolean;
+  onNavigate?: (n: GithubData) => void;
 }
 
 const RepositoryCard = ({
   followingScreen,
+  onNavigate,
   ...repository
 }: RepositoryCardProps) => {
   const {
@@ -119,7 +121,10 @@ const RepositoryCard = ({
           </TextWrapper>
           {followingScreen && repository?.releases?.length && (
             <>
-              <TouchableWithoutFeedback>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  onNavigate && onNavigate(repository);
+                }}>
                 <VersionOuter>
                   <VersionInner seen={true}>
                     <VersionText seen={true}>
