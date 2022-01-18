@@ -1,15 +1,17 @@
 import React, {createContext} from 'react';
-import {Platform, View} from 'react-native';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
-import BackIcon from './Components/BackIcon';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import BackIcon from '@Components/BackIcon';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
+
+import SplashScreen from '@Pages/SplashScreen';
+import SearchScreen from '@Pages/SearchScreen';
+import FollowingScreen from '@Pages/FollowingScreen';
+import ReleasesScreen from '@Pages/ReleasesScreen';
 
 export const BottomNavigationContext = createContext<{
   status: 'initial' | 'loaded' | 'ditry';
@@ -25,13 +27,6 @@ const withHeaderOptions: any = {
   headerTitleAlign: 'center',
   headerBackTitleVisible: false,
   headerBackImage: () => <BackIcon />,
-};
-
-const withAnimation: any = {
-  cardStyleInterpolator:
-    Platform.OS === 'ios'
-      ? CardStyleInterpolators.forHorizontalIOS
-      : CardStyleInterpolators.forFadeFromBottomAndroid,
 };
 
 const withTabBarOptions = {
@@ -56,14 +51,14 @@ const TabScreens = () => {
       }}>
       <Tab.Screen
         name="Search"
-        component={() => <View />}
+        component={SearchScreen}
         options={{
           ...withTabBarOptions,
         }}
       />
       <Tab.Screen
         name="Following"
-        component={() => <View />}
+        component={FollowingScreen}
         options={{
           ...withTabBarOptions,
         }}
@@ -86,13 +81,12 @@ const Routes = () => {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          ...withAnimation,
         }}>
-        <Stack.Screen name="SplashScreen" component={() => <View />} />
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
         <Stack.Screen name="DashboardScreen" component={TabScreens} />
         <Stack.Screen
           name="Releases"
-          component={() => <View />}
+          component={ReleasesScreen}
           options={{
             ...withHeaderOptions,
           }}

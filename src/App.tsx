@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-import './Localize';
 
 import React from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
