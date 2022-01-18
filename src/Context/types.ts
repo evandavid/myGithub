@@ -9,6 +9,12 @@ type ActionMap<M extends {[index: string]: any}> = {
       };
 };
 
+type GithubReleaseData = {
+  tag_name: string;
+  body: string;
+  published_at: string;
+};
+
 type GithubData = {
   id: string;
   name: string;
@@ -20,6 +26,9 @@ type GithubData = {
   owner: {
     avatar_url: string;
   };
+
+  releases?: GithubReleaseData[];
+  seen?: boolean;
 };
 
 type IMyGithubContextState = {
@@ -32,6 +41,7 @@ enum ACTION_TYPES {
   UPDATE_SEARCH_QUERY = 'UPDATE_SEARCH_QUERY',
   ADD_TO_LIST = 'ADD_TO_LIST',
   REMOVE_FROM_LIST = 'REMOVE_FROM_LIST',
+  UPDATE_RELEASE = 'UPDATE_RELEASE',
 }
 
 type ProductPayload = {
@@ -47,6 +57,10 @@ type ProductPayload = {
   };
   [ACTION_TYPES.REMOVE_FROM_LIST]: {
     repository: GithubData;
+  };
+  [ACTION_TYPES.UPDATE_RELEASE]: {
+    repository: GithubData;
+    releases: GithubReleaseData[];
   };
 };
 

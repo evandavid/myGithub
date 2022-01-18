@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {Image, Text, View} from 'react-native';
 
 const CardWrapper = styled(View)`
@@ -87,6 +87,28 @@ const FollowText = styled(Text)`
   font-weight: 500;
 `;
 
+const VersionOuter = styled(View)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const VersionInner = styled(View)<{seen?: boolean}>`
+  padding: 3px 6px;
+  border-radius: 3px;
+  ${props =>
+    !props.seen &&
+    css`
+      background: #383325;
+    `}
+`;
+
+const VersionText = styled(Text)<{seen?: boolean}>`
+  color: ${props => (!props.seen ? '#FBCB3F' : '#39649d')};
+  margin-left: 3px;
+  font-weight: 500;
+`;
+
 export {
   CardWrapper,
   InnerWrapper,
@@ -101,4 +123,7 @@ export {
   FooterItem,
   ButtonWrapper,
   FollowText,
+  VersionOuter,
+  VersionInner,
+  VersionText,
 };

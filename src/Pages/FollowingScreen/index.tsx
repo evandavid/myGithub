@@ -25,7 +25,7 @@ const FollowingScreen = () => {
           ListHeaderComponent={<ItemSeparator />}
           ItemSeparatorComponent={() => <ItemSeparator />}
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id + 'following'}
         />
       ) : (
         <BlankPlaceholder

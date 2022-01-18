@@ -17,7 +17,7 @@ const SplashScreen = ({
   const {dispatch} = useMyGithub();
 
   const getInitialDataFromDevice = async () => {
-    const searchQuery = await getStringData(SEARCH_QUERY_KEY);
+    const searchQuery = (await getStringData(SEARCH_QUERY_KEY)) || '';
     const followingList = await getObjectData(LIST_KEY);
 
     dispatch({
