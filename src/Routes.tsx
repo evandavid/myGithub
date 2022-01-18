@@ -2,7 +2,7 @@ import React, {createContext} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import Icon from 'react-native-vector-icons/Feather';
 import BackIcon from '@Components/BackIcon';
 
 const Tab = createBottomTabNavigator();
@@ -38,9 +38,21 @@ const TabScreens = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarShowLabel: false,
+        headerStyle: {
+          backgroundColor: '#333',
+          borderBottomWidth: 0,
+          elevation: 0, // for Android
+          shadowOffset: {
+            width: 0,
+            height: 0, // for iOS
+          },
+        },
+        headerTitleStyle: {
+          color: '#fff',
+        },
         tabBarStyle: {
+          backgroundColor: '#333',
           borderTopWidth: 0,
           elevation: 0, // for Android
           shadowOffset: {
@@ -54,6 +66,9 @@ const TabScreens = () => {
         component={SearchScreen}
         options={{
           ...withTabBarOptions,
+          tabBarIcon: ({color, size}: any) => (
+            <Icon name="search" color={color} size={size} />
+          ),
         }}
       />
       <Tab.Screen
@@ -61,6 +76,9 @@ const TabScreens = () => {
         component={FollowingScreen}
         options={{
           ...withTabBarOptions,
+          tabBarIcon: ({color, size}: any) => (
+            <Icon name="user-check" color={color} size={size} />
+          ),
         }}
       />
     </Tab.Navigator>

@@ -9,6 +9,8 @@ import Routes from './Routes';
 import Icon from 'react-native-vector-icons/Feather';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
+import {MyGithubProvider} from '@Context/index';
+
 Icon.loadFont();
 
 const App = () => {
@@ -21,7 +23,9 @@ const App = () => {
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaProvider style={backgroundStyle}>
         <StatusBar barStyle={'dark-content'} backgroundColor={'#fff'} />
-        <Routes />
+        <MyGithubProvider>
+          <Routes />
+        </MyGithubProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

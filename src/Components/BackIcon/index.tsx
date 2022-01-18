@@ -5,7 +5,7 @@ import BackIconWrapper from './styled';
 const BackIcon = () => {
   return (
     <BackIconWrapper>
-      <Icon name={''} />
+      <Icon name={'chevron-left'} size={24} color="#EBEBEB" />
     </BackIconWrapper>
   );
 };

@@ -61,8 +61,10 @@
     "baseUrl": "./",
     "paths": {
       "@Components/*": ["src/Components/*"],
+      "@Context/*": ["src/Context/*"],
       "@Pages/*": ["src/Pages/*"],
-      "@Hooks/*": ["src/Hooks/*"]
+      "@Hooks/*": ["src/Hooks/*"],
+      "@Config/*": ["src/Config/*"]
     }
   },
   "exclude": [

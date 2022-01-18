@@ -5,6 +5,7 @@ const FollowingScreenWrapper = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background: #333;
 `;
 
 export {FollowingScreenWrapper};
